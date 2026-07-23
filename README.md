@@ -2,7 +2,7 @@
 
 An interactive visualization that teaches prompt engineering by animating your prompt through RAG, LLM, and MCP tool stages.
 
-Created and maintained by **Arunabha Gupta**.
+Created and maintained by **Arunabha Gupta**. 
 
 ## Why
 
