@@ -13,17 +13,18 @@ const readDone = (): string[] => {
   } catch { return []; }
 };
 
-function Challenge({ lesson, onDone }: { lesson: Lesson; onDone: () => void }) {
+function Challenge({ lesson, onDone, onDraft }: { lesson: Lesson; onDone: () => void; onDraft: (text: string) => void }) {
   const [draft, setDraft] = useState('');
   const result = useMemo(() => (draft.trim() ? scorePrompt(draft, RULES) : null), [draft]);
   const missing = result ? lesson.challenge.requiredElements.filter(
     (el) => !result.elements.find((e) => e.element === el)!.present) : lesson.challenge.requiredElements;
   const passed = result !== null && missing.length === 0;
+  const change = (text: string) => { setDraft(text); onDraft(text); };
   return (
     <div className="challenge">
       <h4>PRACTICE CHALLENGE</h4>
       <p>{lesson.challenge.brief}</p>
-      <textarea className="promptbox" value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Draft your prompt here…" />
+      <textarea className="promptbox" value={draft} onChange={(e) => change(e.target.value)} placeholder="Draft your prompt here…" />
       {result && (
         <p className="result" style={{ color: passed ? 'var(--green)' : 'var(--amber)' }}>
           Score {result.score}/100 · {passed ? '✓ all required elements present — challenge complete!' : `still missing: ${missing.join(', ')}`}
@@ -40,6 +41,7 @@ export function Learn() {
   const [stepIdx, setStepIdx] = useState(0);
   const [done, setDone] = useState(readDone);
   const [dismissed, setDismissed] = useState(false);
+  const [lastStep, setLastStep] = useState<Record<string, number>>({});
   const setPrompt = useLab((s) => s.setPrompt);
   const setScenario = useLab((s) => s.setScenario);
   const lesson = lessons.find((l) => l.id === activeId)!;
@@ -49,10 +51,12 @@ export function Learn() {
   const goTo = (l: Lesson, idx: number) => {
     setScenario(l.scenarioId);
     setActiveId(l.id); setStepIdx(idx);
+    setLastStep((prev) => ({ ...prev, [l.id]: idx }));
     setDismissed(false);
     const s = l.steps[idx];
     if (s.prompt) setPrompt(s.prompt, s.variant === 'bad' ? 'bad' : s.variant === 'good' ? 'good' : 'custom');
   };
+  const selectLesson = (l: Lesson) => goTo(l, l.id === activeId ? stepIdx : (lastStep[l.id] ?? 0));
   const markDone = () => {
     const next = [...new Set([...done, lesson.id])];
     setDone(next);
@@ -64,13 +68,13 @@ export function Learn() {
       <aside className="lessons">
         <div className="lbl" style={{ margin: '4px 6px 10px' }}>Lessons</div>
         {lessons.map((l) => (
-          <button key={l.id} className={`lesson ${l.id === activeId ? 'on' : ''} ${done.includes(l.id) ? 'done' : ''}`} onClick={() => goTo(l, 0)}>
+          <button key={l.id} className={`lesson ${l.id === activeId ? 'on' : ''} ${done.includes(l.id) ? 'done' : ''}`} onClick={() => selectLesson(l)}>
             <span className="num">{done.includes(l.id) ? '✓' : String(l.order).padStart(2, '0')}</span>{l.title}
           </button>
         ))}
       </aside>
       <div className="learn-canvas">
-        <div className={step.spotlight !== 'none' && step.spotlight !== 'composer' ? 'spot-dim' : ''}>
+        <div className={!dismissed && step.spotlight !== 'none' && step.spotlight !== 'composer' ? 'spot-dim' : ''}>
           <PipelineCanvas spotlight={step.spotlight} />
         </div>
         {!dismissed && (
@@ -87,7 +91,7 @@ export function Learn() {
             </div>
           </div>
         )}
-        {atEnd && <Challenge lesson={lesson} onDone={markDone} />}
+        {atEnd && <Challenge lesson={lesson} onDone={markDone} onDraft={(text) => setPrompt(text)} />}
       </div>
     </div>
   );
