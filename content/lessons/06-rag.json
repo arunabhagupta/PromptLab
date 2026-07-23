@@ -1,0 +1,10 @@
+{
+  "id": "rag", "order": 6, "title": "How RAG reads your prompt", "scenarioId": "aircraft-manuals",
+  "steps": [
+    { "spotlight": "rag", "heading": "Search before answer", "body": "RAG turns your prompt into an embedding — a point in meaning-space — and finds document chunks nearby. Your prompt IS the search query, whether you meant it as one or not.", "prompt": "You are a Digital Project Manager. Create an adoption strategy for the Generative AI tools that help engineers search technical aircraft manuals, respecting our data-security compliance policy.", "variant": "good" },
+    { "spotlight": "rag", "heading": "Keywords steer retrieval", "body": "'aircraft manuals', 'adoption strategy', 'data-security compliance' — each specific phrase pulls the matching document up the ranking. Watch the similarity bars." },
+    { "spotlight": "rag", "heading": "Vague words retrieve noise", "body": "Now the same request, vaguely: watch relevant documents fall and the HR leave policy float up. The retriever isn't stupid — it was given nothing to grip.", "prompt": "help me with the rollout stuff for those docs", "variant": "bad" },
+    { "spotlight": "llm", "heading": "Retrieval quality caps answer quality", "body": "The model can only cite what retrieval delivered. Junk chunks + vague prompt = the model improvises. This is why prompt specificity matters MORE in RAG systems, not less." }
+  ],
+  "challenge": { "brief": "Write a prompt whose retrieval finds at least 2 relevant documents (similarity ≥ 0.55). Use specific keywords from the scenario: manuals, engineers, rollout, security…", "requiredElements": ["task", "context"] }
+}

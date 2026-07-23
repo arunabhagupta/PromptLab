@@ -1,0 +1,10 @@
+{
+  "id": "good-vs-bad", "order": 3, "title": "Good vs Bad, side by side", "scenarioId": "aircraft-manuals",
+  "steps": [
+    { "spotlight": "none", "heading": "The race", "body": "Two prompts, identical scenario. 'help me with AI rollout stuff for the docs thing, make it good' versus the full PTCF prompt. Open Compare mode after this lesson to watch them race.", "variant": "compare" },
+    { "spotlight": "rag", "heading": "Where the bad prompt loses first", "body": "'stuff' and 'the docs thing' match nothing in the document index — retrieval returns noise, and the model gets no facts to work with.", "prompt": "help me with AI rollout stuff for the docs thing, make it good", "variant": "bad" },
+    { "spotlight": "llm", "heading": "Garbage in, confident garbage out", "body": "With no persona, no deliverable, and junk retrieval, the model must guess everything. It will still answer fluently — that's what makes hallucination dangerous." },
+    { "spotlight": "response", "heading": "D− vs A+", "body": "The bad prompt earns generic advice with invented details. The good prompt earns a structured, presentable strategy. The only difference was the prompt.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table with phases, owners, and milestones.", "variant": "good" }
+  ],
+  "challenge": { "brief": "Take the bad prompt 'help me with AI rollout stuff for the docs thing, make it good' and fix it. Reach at least a 'good' score (65+) with Persona, Task, Context and Format present.", "requiredElements": ["persona", "task", "context", "format"] }
+}

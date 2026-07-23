@@ -1,0 +1,12 @@
+[
+  { "term": "token", "definition": "The unit LLMs actually read — roughly ¾ of an English word. You pay, and wait, per token." },
+  { "term": "context window", "definition": "The model's working memory: system prompt + retrieved documents + your prompt + its answer must all fit inside it." },
+  { "term": "RAG", "definition": "Retrieval-Augmented Generation — the system searches your documents first and pastes the best matches into the context window before the model answers." },
+  { "term": "embedding", "definition": "A list of numbers representing meaning; similar texts get nearby numbers, which is how retrieval finds relevant chunks." },
+  { "term": "MCP", "definition": "Model Context Protocol — an open standard that lets models discover and call external tools (search, tickets, email) with structured arguments." },
+  { "term": "hallucination", "definition": "A confident-sounding fabrication. Risk rises when the prompt is vague and retrieval returns junk." },
+  { "term": "system prompt", "definition": "Hidden instructions the app puts before your prompt — rules, persona, and safety policy." },
+  { "term": "top-k", "definition": "How many of the highest-similarity document chunks retrieval passes to the model." },
+  { "term": "PTCF", "definition": "Persona, Task, Context, Format — the four load-bearing elements of a strong prompt." },
+  { "term": "prompt chaining", "definition": "Splitting a big job into a sequence of small prompts, feeding each output into the next." }
+]

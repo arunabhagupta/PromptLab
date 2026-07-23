@@ -1,0 +1,24 @@
+{
+  "id": "aircraft-manuals",
+  "title": "AI rollout for aircraft-manual search",
+  "description": "A Digital Project Manager must design a 3-month GenAI adoption strategy helping engineers search thousands of pages of technical aircraft manuals — balancing speed, user training, and strict data-security compliance.",
+  "goodPrompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search and synthesize thousands of pages of technical aircraft manuals, balancing rollout speed, user training, and strict data-security compliance. Use a professional tone suitable for senior leadership. Present it as a table with columns for phase, actions, owners, and milestones. For example, a phase row could be: 'Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant | Digital PM | 80% pilot activation'. Do not include confidential program names; if you are unsure about a detail, say so rather than inventing it. What questions do you have for me that would help you provide the best output?",
+  "badPrompt": "help me with AI rollout stuff for the docs thing, make it good",
+  "documents": [
+    { "id": "manual_04.pdf", "title": "A320 Maintenance Manual, ch. 4", "keywords": ["aircraft", "manual", "maintenance", "engineers", "technical"] },
+    { "id": "rollout_faq.md", "title": "GenAI Rollout FAQ", "keywords": ["rollout", "adoption", "strategy", "training", "ai", "generative"] },
+    { "id": "security_policy.pdf", "title": "Data Security & Compliance Policy", "keywords": ["security", "compliance", "data", "confidential"] },
+    { "id": "hr_policy.doc", "title": "HR Leave Policy", "keywords": ["leave", "holiday", "hr"] }
+  ],
+  "tools": [
+    { "name": "search_manuals", "goodArgs": "query=\"AI adoption strategy aircraft manuals\", top_k=3", "description": "Searches the technical document index" },
+    { "name": "create_ticket", "goodArgs": "", "description": "Opens an IT service ticket" },
+    { "name": "send_email", "goodArgs": "", "description": "Sends an email on your behalf" }
+  ],
+  "responses": {
+    "excellent": "# 3-Month AI Implementation & Adoption Strategy\n\n| Phase | Actions | Owners | Milestones |\n|---|---|---|---|\n| Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant; baseline search-time metrics; security review sign-off | Digital PM · InfoSec | 80% pilot activation, zero security findings |\n| Month 2 — Expand | Train 3 engineering teams; publish prompt playbook; weekly office hours | Digital PM · Team Leads | 150 active users, CSAT ≥ 4/5 |\n| Month 3 — Scale | Org-wide rollout; integrate with document index; adoption dashboard | Digital PM · IT Ops | 60% weekly active usage, exec review |\n\nOpen questions for you: preferred pilot team, existing document index vendor, and compliance framework version?",
+    "good": "# 3-Month AI Adoption Strategy\n\n| Phase | Actions | Milestones |\n|---|---|---|\n| Month 1 | Pilot with one engineering team | Pilot live |\n| Month 2 | Training sessions and feedback loop | 100 users trained |\n| Month 3 | Full rollout with security review | Org-wide access |\n\n(Owners not assigned — add stakeholder detail for a sharper plan.)",
+    "fair": "Here's a general 3-month plan for AI adoption: start with a pilot, then training, then a broader rollout. Consider security along the way. You may want to define which tools, which teams, and what success looks like — the request left those open.",
+    "poor": "Sure! AI rollout is exciting. You could try some AI tools for your documents, maybe run a survey, and see what sticks. Popular options include various chatbots. (⚠ This response guessed at your intent — the prompt gave no role, no deliverable, no constraints, and no format.)"
+  }
+}

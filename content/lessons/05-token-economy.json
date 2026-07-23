@@ -1,0 +1,10 @@
+{
+  "id": "token-economy", "order": 5, "title": "The token economy", "scenarioId": "aircraft-manuals",
+  "steps": [
+    { "spotlight": "tokenizer", "heading": "Tokens are the currency", "body": "Every token costs three ways: money (per-token pricing), latency (models read sequentially), and context space (the window is finite). Here's a padded prompt:", "prompt": "Hello! I hope you are doing well. Could you please kindly help me — I would like you to create a summary of our AI rollout plan in order to be able to inform the team, it would be great if you could keep it basically very short. Thank you in advance." },
+    { "spotlight": "tokenizer", "heading": "The optimizer's diff", "body": "Open the Tokenizer stage: 'could you please kindly' → gone; 'in order to be able to' → 'to'; the greeting and sign-off → gone. Same meaning, ~40% fewer tokens." },
+    { "spotlight": "tokenizer", "heading": "Formatting is token strategy", "body": "Bullets beat prose for lists. Delimiters (``` or \"\"\") separate instructions from data. Front-load the task; don't repeat instructions. Politeness padding does nothing — models don't have feelings, they have budgets.", "prompt": "Summarize our AI rollout plan for the team in 5 bullets." },
+    { "spotlight": "response", "heading": "Optimized ≠ stripped bare", "body": "Keep every token that adds information (persona, context, format). Cut every token that doesn't (greetings, hedges, filler). Score stays; cost drops." }
+  ],
+  "challenge": { "brief": "Write a prompt for the aircraft-manuals scenario that scores 'good' or better using at most 60 tokens. Watch the counter as you type.", "requiredElements": ["task", "context"] }
+}

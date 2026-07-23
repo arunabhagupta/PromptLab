@@ -1,0 +1,12 @@
+{
+  "id": "iteration", "order": 8, "title": "The iteration playbook", "scenarioId": "aircraft-manuals",
+  "steps": [
+    { "spotlight": "composer", "heading": "First drafts are drafts", "body": "Even excellent prompts rarely nail it first try — and that's fine. Professionals iterate. Four moves make up the playbook.", "variant": "good" },
+    { "spotlight": "composer", "heading": "Move 1 — Nudge", "body": "Follow up conversationally: 'Make the second phase more detailed', 'Shorten the summary', 'Turn the risks into a table'. Small steering beats rewriting from scratch." },
+    { "spotlight": "composer", "heading": "Move 2 — Chain", "body": "Break big jobs into a sequence: prompt 1 outlines the strategy → prompt 2 details Month 1 → prompt 3 drafts the training plan. Each prompt is small, checkable, and feeds the next. Close one task before starting another — don't change topics mid-thread.", "prompt": "First, list the 6 sections a 3-month AI adoption strategy should contain. Do not write the sections yet." },
+    { "spotlight": "llm", "heading": "Move 3 — Trigger reasoning", "body": "'Let's think step-by-step' and 'show your reasoning' activate more careful generation patterns — cheap words, measurable gains on complex tasks.", "prompt": "Let's think step-by-step. You are a Digital Project Manager. Plan the security-review milestones for a GenAI rollout across 3 months." },
+    { "spotlight": "composer", "heading": "Move 4 — Ask for feedback", "body": "End with: 'What questions do you have for me that would help you provide the best output?' The model surfaces your blind spots — missing context you didn't know you were withholding.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI adoption strategy for engineers searching aircraft manuals. Present it as a table. What questions do you have for me that would help you provide the best output?" },
+    { "spotlight": "response", "heading": "You've completed the course", "body": "PTCF + Examples/Tone/Safeguards + token economy + retrieval-aware wording + tool-clear tasks + iteration. Head to the Sandbox and make it yours — or the Cheat Sheet for the printable rules." }
+  ],
+  "challenge": { "brief": "Write a prompt that uses at least two playbook moves: a step-by-step trigger AND an ask-for-feedback close, on any aircraft-manuals task.", "requiredElements": ["task"] }
+}

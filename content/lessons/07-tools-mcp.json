@@ -1,0 +1,10 @@
+{
+  "id": "tools-mcp", "order": 7, "title": "Prompts that act: Tools & MCP", "scenarioId": "aircraft-manuals",
+  "steps": [
+    { "spotlight": "mcp", "heading": "From words to actions", "body": "Modern assistants don't just write — they call tools: search indexes, ticket systems, email. MCP is the protocol that lists the tools; your prompt decides which get used and how.", "prompt": "You are a Digital Project Manager. Search our manual index for AI adoption strategy material and create a summary table of the top findings.", "variant": "good" },
+    { "spotlight": "mcp", "heading": "Clear task → correct call", "body": "'Search our manual index for AI adoption strategy material' maps cleanly to search_manuals(query=\"AI adoption strategy aircraft manuals\") — right tool, right arguments, filled entirely from your words." },
+    { "spotlight": "mcp", "heading": "Vague task → wrong call or none", "body": "'sort out the docs situation' — which tool is that? The model either guesses (create_ticket? send_email?) or does nothing. Ambiguity that a human colleague would clarify, a tool-calling model just… resolves badly.", "prompt": "sort out the docs situation", "variant": "bad" },
+    { "spotlight": "response", "heading": "Agentic stakes are higher", "body": "A vague chat prompt wastes one answer. A vague agent prompt sends the wrong email. As AI takes actions, prompt precision stops being style and becomes safety." }
+  ],
+  "challenge": { "brief": "Write a prompt that would make the model call search_manuals with sensible arguments: name the action, the index, and what to do with the results.", "requiredElements": ["task", "context", "format"] }
+}

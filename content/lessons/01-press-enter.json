@@ -1,0 +1,13 @@
+{
+  "id": "press-enter", "order": 1, "title": "What happens when you press Enter", "scenarioId": "aircraft-manuals",
+  "steps": [
+    { "spotlight": "none", "heading": "Your prompt takes a journey", "body": "Between pressing Enter and seeing an answer, your words travel through six stations. Watch the whole trip once — then we'll stop at each station.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table.", "variant": "good" },
+    { "spotlight": "analyzer", "heading": "Station 1 — the Analyzer", "body": "First, the quality of your prompt is what it is — no system can add information you didn't provide. The Analyzer shows what your prompt contains: who the AI should be, what to do, the context, and the shape of the answer." },
+    { "spotlight": "tokenizer", "heading": "Station 2 — the Tokenizer", "body": "Your sentence shatters into tokens — the ~¾-word pieces models actually read. Every token costs money, time, and space." },
+    { "spotlight": "rag", "heading": "Station 3 — Retrieval (RAG)", "body": "The system searches your organisation's documents for chunks similar to your prompt and pastes the best matches alongside it. Specific words find the right documents." },
+    { "spotlight": "llm", "heading": "Station 4 — the LLM", "body": "The model reads everything — system rules, retrieved chunks, your prompt — as one context window, then predicts the answer one token at a time." },
+    { "spotlight": "mcp", "heading": "Station 5 — Tools (MCP)", "body": "If your task needs an action — searching an index, opening a ticket — the model picks a tool and fills in its arguments, using only what your prompt told it." },
+    { "spotlight": "response", "heading": "Station 6 — the Response", "body": "The answer's quality was largely decided back at Station 1. That's the core idea of this whole lab: prompts are the steering wheel." }
+  ],
+  "challenge": { "brief": "Write any prompt for the aircraft-manuals scenario and run it through the pipeline. Just get a feel for the flow — any score is fine.", "requiredElements": ["task"] }
+}

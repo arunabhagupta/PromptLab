@@ -1,0 +1,61 @@
+{
+  "elements": {
+    "persona": { "weight": 15, "patterns": ["you are (a|an|the) ", "act as ", "as (a|an) [a-z]+ (expert|manager|engineer|specialist|analyst|consultant)", "take the role of"], "tip": "Start with who the AI should be: 'You are a Digital Project Manager at an aerospace company.'" },
+    "task": { "weight": 25, "patterns": ["create ", "write ", "draft ", "summari[sz]e ", "generate ", "design ", "analy[sz]e ", "list ", "compare ", "explain ", "translate ", "build ", "produce "], "tip": "Name one specific action verb + deliverable: 'Create a 3-month AI Implementation & Adoption Strategy.'" },
+    "context": { "weight": 20, "patterns": ["\\bfor\\b.{20,}", "\\bbecause\\b", "\\bgiven\\b", "balanc(e|ing)", "constraint", "compliance", "audience", "background:", "context:"], "tip": "Add the details that matter: who it's for, constraints, and why (e.g. 'balancing speed, training and data-security compliance')." },
+    "format": { "weight": 15, "patterns": ["format", "as a table", "bullet", "numbered list", "markdown", "json", "structure (it|the)", "sections?:", "columns?", "one paragraph", "\\bslide"], "tip": "Say how the output should look: 'Present it as a table with phases, owners and milestones.'" },
+    "examples": { "weight": 10, "patterns": ["for example", "e\\.g\\.", "example:", "such as:", "here is an example", "like this:", "sample:"], "tip": "Show one example of what good output looks like — models imitate demonstrations better than descriptions." },
+    "tone": { "weight": 7, "patterns": ["\\btone\\b", "professional", "formal", "friendly", "concise(ly)?", "executive", "conversational", "persuasive"], "tip": "State the voice: 'Use a professional, confident tone suitable for senior leadership.'" },
+    "safeguards": { "weight": 8, "patterns": ["do not (include|share|invent|fabricate)", "don't (include|share|invent)", "avoid ", "only use", "if you are unsure", "cite", "confidential", "no personal data", "stay within"], "tip": "Add guardrails: 'Do not include confidential data; if unsure, say so rather than inventing details.'" }
+  },
+  "flags": [
+    { "id": "vagueness", "label": "Vague wording", "advice": "Replace vague words with specifics — name the system, audience, quantity, or deadline.", "penalty": 10, "patterns": ["\\bstuff\\b", "\\bthings?\\b", "\\bsomething\\b", "make it (good|nice|better)", "\\betc\\.?\\b", "help me with", "\\bwhatever\\b"] },
+    { "id": "slang", "label": "Slang / informal", "advice": "Models map slang poorly — write in plain, complete sentences.", "penalty": 8, "patterns": ["\\bgonna\\b", "\\bwanna\\b", "\\bkinda\\b", "\\bidk\\b", "\\basap\\b", "\\bpls\\b", "\\bthx\\b", "\\bu\\b", "\\blol\\b"] },
+    { "id": "conflict", "label": "Conflicting instructions", "advice": "Pick one: contradictory instructions confuse the model. Close one task before starting another.", "penalty": 12, "patterns": ["\\bshort\\b[\\s\\S]{0,80}\\bdetailed\\b", "\\bdetailed\\b[\\s\\S]{0,80}\\bshort\\b", "\\bformal\\b[\\s\\S]{0,60}\\bcasual\\b", "\\bcasual\\b[\\s\\S]{0,60}\\bformal\\b", "also[,]? (unrelated|separately|another topic)"] },
+    { "id": "bias", "label": "Biased framing", "advice": "Remove assumptions about people or groups — ask for balanced, evidence-based output.", "penalty": 12, "patterns": ["only (men|women|young people|old people)", "\\b(men|women) are (better|worse)\\b", "obviously (everyone|nobody)", "typical (millennial|boomer)"] },
+    { "id": "illegible", "label": "Hard to parse", "advice": "Use punctuation and capitalisation — a run-on wall of text degrades output quality.", "penalty": 6, "patterns": ["^[a-z][^.!?\\n]{200,}$"] }
+  ],
+  "bonuses": [
+    { "id": "step-by-step", "label": "Reasoning trigger", "points": 5, "patterns": ["step[- ]by[- ]step", "think (it )?through", "show your reasoning"] },
+    { "id": "ask-feedback", "label": "Asks for feedback", "points": 5, "patterns": ["what questions do you have", "ask me (anything|questions) (you need|before)"] },
+    { "id": "delimiters", "label": "Uses delimiters", "points": 3, "patterns": ["\"\"\"", "```", "<[a-z_]+>", "---"] }
+  ],
+  "fillers": [
+    { "pattern": "please kindly ", "replacement": "" },
+    { "pattern": "kindly ", "replacement": "" },
+    { "pattern": "i would like you to ", "replacement": "" },
+    { "pattern": "i want you to ", "replacement": "" },
+    { "pattern": "could you please ", "replacement": "" },
+    { "pattern": "can you please ", "replacement": "" },
+    { "pattern": "please ", "replacement": "" },
+    { "pattern": "in order to be able to ", "replacement": "to " },
+    { "pattern": "in order to ", "replacement": "to " },
+    { "pattern": "due to the fact that ", "replacement": "because " },
+    { "pattern": "at this point in time", "replacement": "now" },
+    { "pattern": "it would be great if you could ", "replacement": "" },
+    { "pattern": "basically ", "replacement": "" },
+    { "pattern": "very ", "replacement": "" },
+    { "pattern": "really ", "replacement": "" },
+    { "pattern": "thank you in advance\\.?", "replacement": "" }
+  ],
+  "bestPractices": [
+    { "id": "concise-clear", "title": "Concise and clear", "detail": "Every word should earn its place. Short, direct sentences beat padded politeness — the model doesn't need 'please kindly'.", "source": "user" },
+    { "id": "contextually-relevant", "title": "Contextually relevant", "detail": "Include the details that change the answer: audience, constraints, domain, goal. Leave out everything else.", "source": "user" },
+    { "id": "task-aligned", "title": "Aligned with the task", "detail": "One prompt, one job. Name the deliverable explicitly and close a task before starting a new one.", "source": "user" },
+    { "id": "examples", "title": "Show example demonstrations", "detail": "One good example beats three paragraphs of description — models imitate patterns.", "source": "user" },
+    { "id": "bias-free", "title": "Free from bias", "detail": "Don't bake assumptions about people or outcomes into the prompt; ask for balanced, evidence-based output.", "source": "user" },
+    { "id": "specific-keywords", "title": "Be specific, use keywords", "detail": "Specific nouns steer retrieval and attention: 'aircraft maintenance manuals', not 'the docs'.", "source": "user" },
+    { "id": "legible", "title": "Write legibly", "detail": "Correct punctuation, capitalisation, and grammar measurably improve output quality.", "source": "user" },
+    { "id": "ask-feedback", "title": "Ask for feedback", "detail": "End with: 'What questions do you have for me that would help you provide the best output?' — it surfaces your blind spots.", "source": "user" },
+    { "id": "chaining", "title": "Break it up (chaining)", "detail": "Split complex workflows into a sequence of smaller prompts; feed each output into the next.", "source": "user" },
+    { "id": "iterate", "title": "Iterative fine-tuning", "detail": "Don't expect perfection first try — nudge with follow-ups: 'Make the second paragraph shorter.'", "source": "user" },
+    { "id": "triggers", "title": "Prompt triggers", "detail": "'Let's think step-by-step' and similar phrases activate stronger reasoning patterns.", "source": "user" },
+    { "id": "no-slang", "title": "No slang or vagueness", "detail": "Slang and vague language produce low-quality or inaccurate responses — write plainly and precisely.", "source": "user" },
+    { "id": "no-conflict", "title": "No conflicting instructions", "detail": "Contradictory or multi-topic requests confuse the model. One topic per conversation thread.", "source": "user" },
+    { "id": "delimiters", "title": "Delimit your structure", "detail": "Use ``` , \"\"\" or XML-style tags to separate instructions from data — the model can't mix up what's what.", "source": "standard" },
+    { "id": "output-spec", "title": "Specify the output format", "detail": "Table? JSON? Bullet list with max 5 items? Say so — never make the model guess the shape.", "source": "standard" },
+    { "id": "positive-framing", "title": "Say do, not don't", "detail": "'Write in active voice' works better than 'don't use passive voice' — models follow positive instructions more reliably.", "source": "standard" },
+    { "id": "front-load", "title": "Front-load key instructions", "detail": "Put role and task first, supporting detail after — early tokens anchor the model's plan.", "source": "standard" },
+    { "id": "token-economy", "title": "Mind the token budget", "detail": "Tokens cost money, latency, and context space. Trim filler; prefer bullets over prose for lists; don't repeat instructions.", "source": "standard" }
+  ]
+}

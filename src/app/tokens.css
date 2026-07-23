@@ -1,0 +1,23 @@
+:root {
+  --bg:#0A0F1E; --panel:#111931; --panel2:#0D1426; --inset:#0B1224;
+  --line:#24304F; --line2:#1A2440;
+  --ink:#E7EDFB; --mut:#8FA0C2; --dim:#5E6C8E;
+  --cyan:#53D6F0; --green:#43DE9B; --red:#F26D85; --amber:#F2B94F;
+  --violet:#9D8CFF; --blue:#5E9BFF; --magenta:#E579D8;
+  --mono:ui-monospace,"Cascadia Code","SF Mono",Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+:root[data-theme="light"] {
+  --bg:#F3F5FB; --panel:#FFFFFF; --panel2:#EDF0F8; --inset:#E4E9F4;
+  --line:#C6CFE4; --line2:#D6DDEC;
+  --ink:#131A2E; --mut:#4A5878; --dim:#7C89A8;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; font-family: var(--sans); color: var(--ink); line-height: 1.5; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
