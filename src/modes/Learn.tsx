@@ -39,6 +39,7 @@ export function Learn() {
   const [activeId, setActiveId] = useState(lessons[0].id);
   const [stepIdx, setStepIdx] = useState(0);
   const [done, setDone] = useState(readDone);
+  const [dismissed, setDismissed] = useState(false);
   const setPrompt = useLab((s) => s.setPrompt);
   const setScenario = useLab((s) => s.setScenario);
   const lesson = lessons.find((l) => l.id === activeId)!;
@@ -48,6 +49,7 @@ export function Learn() {
   const goTo = (l: Lesson, idx: number) => {
     setScenario(l.scenarioId);
     setActiveId(l.id); setStepIdx(idx);
+    setDismissed(false);
     const s = l.steps[idx];
     if (s.prompt) setPrompt(s.prompt, s.variant === 'bad' ? 'bad' : s.variant === 'good' ? 'good' : 'custom');
   };
@@ -71,16 +73,20 @@ export function Learn() {
         <div className={step.spotlight !== 'none' && step.spotlight !== 'composer' ? 'spot-dim' : ''}>
           <PipelineCanvas spotlight={step.spotlight} />
         </div>
-        <div className="narr" role="region" aria-label="Lesson narration">
-          <span className="step-eyebrow">Lesson {lesson.order} · step {stepIdx + 1} of {lesson.steps.length}</span>
-          <h4>{step.heading}</h4>
-          <p>{step.body}</p>
-          <div className="nav">
-            <button disabled={stepIdx === 0} onClick={() => goTo(lesson, stepIdx - 1)}>← Back</button>
-            {!atEnd && <button className="next" onClick={() => goTo(lesson, stepIdx + 1)}>Next →</button>}
-            <span className="dots">{lesson.steps.map((_s, i) => (<i key={i} className={i <= stepIdx ? 'on' : ''} />))}</span>
+        {!dismissed && (
+          <div className="narr" role="region" aria-label="Lesson narration">
+            <button className="narr-close" aria-label="Close lesson narration" onClick={() => setDismissed(true)}>✕</button>
+            <span className="step-eyebrow">Lesson {lesson.order} · step {stepIdx + 1} of {lesson.steps.length}</span>
+            <h4>{step.heading}</h4>
+            <p>{step.body}</p>
+            <div className="nav">
+              <button disabled={stepIdx === 0} onClick={() => goTo(lesson, stepIdx - 1)}>← Back</button>
+              {!atEnd && <button className="next" onClick={() => goTo(lesson, stepIdx + 1)}>Next →</button>}
+              {atEnd && <button className="next" onClick={() => setDismissed(true)}>Done ✓</button>}
+              <span className="dots">{lesson.steps.map((_s, i) => (<i key={i} className={i <= stepIdx ? 'on' : ''} />))}</span>
+            </div>
           </div>
-        </div>
+        )}
         {atEnd && <Challenge lesson={lesson} onDone={markDone} />}
       </div>
     </div>

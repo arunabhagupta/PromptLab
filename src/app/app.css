@@ -92,6 +92,10 @@
 .narr .dots { margin-left: auto; display: flex; gap: 5px; }
 .narr .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line); }
 .narr .dots i.on { background: var(--cyan); }
+.narr-close { position: absolute; top: 10px; right: 10px; width: 22px; height: 22px; padding: 0;
+  border: 1px solid var(--line); border-radius: 6px; color: var(--mut); background: transparent;
+  line-height: 1; font-size: 12px; }
+.narr-close:hover { color: var(--ink); border-color: var(--mut); }
 .challenge { border: 1px solid rgba(242,185,79,.4); background: rgba(242,185,79,.06); border-radius: 12px; padding: 14px 16px; margin: 14px; }
 .challenge h4 { margin: 0 0 6px; color: var(--amber); font-family: var(--mono); font-size: 12px; letter-spacing: .1em; }
 .challenge p { margin: 0 0 10px; font-size: 13px; color: var(--mut); }
