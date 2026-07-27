@@ -43,7 +43,7 @@ function derive(text: string, scenario: Scenario) {
 const initialScenario = SCENARIOS[0];
 
 export const useLab = create<LabState>((set, get) => ({
-  mode: 'sandbox', theme: 'dark',
+  mode: 'learn', theme: 'dark',
   scenario: initialScenario, variant: 'good', promptText: initialScenario.goodPrompt,
   ...derive(initialScenario.goodPrompt, initialScenario),
   playback: { status: 'idle', progress: 0, speed: 1 },

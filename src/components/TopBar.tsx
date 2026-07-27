@@ -1,4 +1,5 @@
 import { useLab } from '../store';
+import { isEnabledMode } from '../app/modes';
 
 const TABS = [
   { mode: 'learn', label: '📖 Learn' },
@@ -6,6 +7,8 @@ const TABS = [
   { mode: 'compare', label: '⇅ Compare' },
   { mode: 'cheatsheet', label: '📋 Cheat Sheet' },
 ] as const;
+
+const VISIBLE_TABS = TABS.filter((t) => isEnabledMode(t.mode));
 
 export function TopBar({ onSettings }: { onSettings?: () => void }) {
   const mode = useLab((s) => s.mode);
@@ -16,7 +19,7 @@ export function TopBar({ onSettings }: { onSettings?: () => void }) {
     <header className="topbar">
       <span className="logo">⚡ Prompt<b>Lab</b></span>
       <nav className="tabs" aria-label="Mode">
-        {TABS.map((t) => (
+        {VISIBLE_TABS.map((t) => (
           <button key={t.mode} className={`tab ${mode === t.mode ? 'on' : ''}`} onClick={() => setMode(t.mode)}>{t.label}</button>
         ))}
       </nav>
