@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { loadLessons } from '../content/load';
 import { RULES, useLab } from '../store';
 import { scorePrompt } from '../analysis/scorer';
@@ -57,6 +57,16 @@ export function Learn() {
     if (s.prompt) setPrompt(s.prompt, s.variant === 'bad' ? 'bad' : s.variant === 'good' ? 'good' : 'custom');
   };
   const selectLesson = (l: Lesson) => goTo(l, l.id === activeId ? stepIdx : (lastStep[l.id] ?? 0));
+
+  // without this the canvas shows the scenario's default prompt on first paint,
+  // not the opening step's — which is what the narration is describing
+  const seeded = useRef(false);
+  useEffect(() => {
+    if (seeded.current) return;
+    seeded.current = true;
+    goTo(lesson, stepIdx);
+  });
+
   const markDone = () => {
     const next = [...new Set([...done, lesson.id])];
     setDone(next);

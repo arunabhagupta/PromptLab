@@ -8,8 +8,14 @@ export function useHashMode(): void {
   useEffect(() => {
     const fromHash = () => {
       const h = location.hash.replace('#/', '');
-      const next = isEnabledMode(h) ? h : 'learn';
-      if (next !== useLab.getState().mode) setMode(next);
+      if (!isEnabledMode(h)) {
+        // rewrite before comparing: a disabled hash must not survive in the address bar
+        // even when the store already sits on the fallback mode
+        location.hash = '#/learn';
+        if (useLab.getState().mode !== 'learn') setMode('learn');
+        return;
+      }
+      if (h !== useLab.getState().mode) setMode(h);
     };
     fromHash();
     window.addEventListener('hashchange', fromHash);
