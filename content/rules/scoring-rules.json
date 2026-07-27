@@ -1,7 +1,7 @@
 {
   "elements": {
-    "persona": { "weight": 15, "patterns": ["you are (a|an|the) ", "act as ", "as (a|an) [a-z]+ (expert|manager|engineer|specialist|analyst|consultant)", "take the role of"], "tip": "Start with who the AI should be: 'You are a Digital Project Manager at an aerospace company.'" },
-    "task": { "weight": 25, "patterns": ["create ", "write ", "draft ", "summari[sz]e ", "generate ", "design ", "analy[sz]e ", "list ", "compare ", "explain ", "translate ", "build ", "produce "], "tip": "Name one specific action verb + deliverable: 'Create a 3-month AI Implementation & Adoption Strategy.'" },
+    "persona": { "weight": 15, "patterns": ["you are (a|an|the) ", "act as ", "as (a|an) [a-z]+ (expert|manager|engineer|specialist|analyst|consultant)", "take the role of"], "tip": "Start with who the AI should be: 'You are a Program Manager at a retail company.'" },
+    "task": { "weight": 25, "patterns": ["create ", "write ", "draft ", "summari[sz]e ", "generate ", "design ", "analy[sz]e ", "list ", "compare ", "explain ", "translate ", "build ", "produce "], "tip": "Name one specific action verb + deliverable: 'Create a 3-month AI Adoption Plan.'" },
     "context": { "weight": 20, "patterns": ["\\bfor\\b.{20,}", "\\bbecause\\b", "\\bgiven\\b", "balanc(e|ing)", "constraint", "compliance", "audience", "background:", "context:"], "tip": "Add the details that matter: who it's for, constraints, and why (e.g. 'balancing speed, training and data-security compliance')." },
     "format": { "weight": 15, "patterns": ["format", "as a table", "bullet", "numbered list", "markdown", "json", "structure (it|the)", "sections?:", "columns?", "one paragraph", "\\bslide"], "tip": "Say how the output should look: 'Present it as a table with phases, owners and milestones.'" },
     "examples": { "weight": 10, "patterns": ["for example", "e\\.g\\.", "example:", "such as:", "here is an example", "like this:", "sample:"], "tip": "Show one example of what good output looks like — models imitate demonstrations better than descriptions." },
@@ -44,7 +44,7 @@
     { "id": "task-aligned", "title": "Aligned with the task", "detail": "One prompt, one job. Name the deliverable explicitly and close a task before starting a new one.", "source": "user" },
     { "id": "examples", "title": "Show example demonstrations", "detail": "One good example beats three paragraphs of description — models imitate patterns.", "source": "user" },
     { "id": "bias-free", "title": "Free from bias", "detail": "Don't bake assumptions about people or outcomes into the prompt; ask for balanced, evidence-based output.", "source": "user" },
-    { "id": "specific-keywords", "title": "Be specific, use keywords", "detail": "Specific nouns steer retrieval and attention: 'aircraft maintenance manuals', not 'the docs'.", "source": "user" },
+    { "id": "specific-keywords", "title": "Be specific, use keywords", "detail": "Specific nouns steer retrieval and attention: 'product care manuals', not 'the docs'.", "source": "user" },
     { "id": "legible", "title": "Write legibly", "detail": "Correct punctuation, capitalisation, and grammar measurably improve output quality.", "source": "user" },
     { "id": "ask-feedback", "title": "Ask for feedback", "detail": "End with: 'What questions do you have for me that would help you provide the best output?' — it surfaces your blind spots.", "source": "user" },
     { "id": "chaining", "title": "Break it up (chaining)", "detail": "Split complex workflows into a sequence of smaller prompts; feed each output into the next.", "source": "user" },

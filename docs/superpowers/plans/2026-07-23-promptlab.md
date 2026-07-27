@@ -31,7 +31,7 @@ Prompt_Engineering/
 ├─ package.json  tsconfig.json  vite.config.ts  index.html
 ├─ content/
 │  ├─ rules/scoring-rules.json         # detectors, flags, bonuses, optimizer fillers, best practices
-│  ├─ scenarios/aircraft-manuals.json  # featured scenario (good/bad prompts, docs, tools, responses)
+│  ├─ scenarios/support-kb.json  # featured scenario (good/bad prompts, docs, tools, responses)
 │  ├─ lessons/01…08-*.json             # 8 lessons
 │  └─ glossary.json
 ├─ src/
@@ -263,7 +263,7 @@ git commit -m "feat(promptlab): scaffold Vite+React+TS app with CI and theme tok
 ### Task 2: Shared types, zod content schemas, scoring-rules + scenario + glossary content
 
 **Files:**
-- Create: `src/types.ts`, `src/content/schemas.ts`, `src/content/load.ts`, `content/rules/scoring-rules.json`, `content/scenarios/aircraft-manuals.json`, `content/glossary.json`
+- Create: `src/types.ts`, `src/content/schemas.ts`, `src/content/load.ts`, `content/rules/scoring-rules.json`, `content/scenarios/support-kb.json`, `content/glossary.json`
 - Test: `tests/content.test.ts`
 
 **Interfaces:**
@@ -431,7 +431,7 @@ Note: `import.meta.glob` is Vite-only; `tests/content.test.ts` therefore validat
 ```json
 {
   "elements": {
-    "persona": { "weight": 15, "patterns": ["you are (a|an|the) ", "act as ", "as (a|an) [a-z]+ (expert|manager|engineer|specialist|analyst|consultant)", "take the role of"], "tip": "Start with who the AI should be: 'You are a Digital Project Manager at an aerospace company.'" },
+    "persona": { "weight": 15, "patterns": ["you are (a|an|the) ", "act as ", "as (a|an) [a-z]+ (expert|manager|engineer|specialist|analyst|consultant)", "take the role of"], "tip": "Start with who the AI should be: 'You are a Program Manager at a retail company.'" },
     "task": { "weight": 25, "patterns": ["create ", "write ", "draft ", "summari[sz]e ", "generate ", "design ", "analy[sz]e ", "list ", "compare ", "explain ", "translate ", "build ", "produce "], "tip": "Name one specific action verb + deliverable: 'Create a 3-month AI Implementation & Adoption Strategy.'" },
     "context": { "weight": 20, "patterns": ["\\bfor\\b.{20,}", "\\bbecause\\b", "\\bgiven\\b", "balanc(e|ing)", "constraint", "compliance", "audience", "background:", "context:"], "tip": "Add the details that matter: who it's for, constraints, and why (e.g. 'balancing speed, training and data-security compliance')." },
     "format": { "weight": 15, "patterns": ["format", "as a table", "bullet", "numbered list", "markdown", "json", "structure (it|the)", "sections?:", "columns?", "one paragraph", "\\bslide"], "tip": "Say how the output should look: 'Present it as a table with phases, owners and milestones.'" },
@@ -475,7 +475,7 @@ Note: `import.meta.glob` is Vite-only; `tests/content.test.ts` therefore validat
     { "id": "task-aligned", "title": "Aligned with the task", "detail": "One prompt, one job. Name the deliverable explicitly and close a task before starting a new one.", "source": "user" },
     { "id": "examples", "title": "Show example demonstrations", "detail": "One good example beats three paragraphs of description — models imitate patterns.", "source": "user" },
     { "id": "bias-free", "title": "Free from bias", "detail": "Don't bake assumptions about people or outcomes into the prompt; ask for balanced, evidence-based output.", "source": "user" },
-    { "id": "specific-keywords", "title": "Be specific, use keywords", "detail": "Specific nouns steer retrieval and attention: 'aircraft maintenance manuals', not 'the docs'.", "source": "user" },
+    { "id": "specific-keywords", "title": "Be specific, use keywords", "detail": "Specific nouns steer retrieval and attention: 'product care manuals', not 'the docs'.", "source": "user" },
     { "id": "legible", "title": "Write legibly", "detail": "Correct punctuation, capitalisation, and grammar measurably improve output quality.", "source": "user" },
     { "id": "ask-feedback", "title": "Ask for feedback", "detail": "End with: 'What questions do you have for me that would help you provide the best output?' — it surfaces your blind spots.", "source": "user" },
     { "id": "chaining", "title": "Break it up (chaining)", "detail": "Split complex workflows into a sequence of smaller prompts; feed each output into the next.", "source": "user" },
@@ -492,30 +492,30 @@ Note: `import.meta.glob` is Vite-only; `tests/content.test.ts` therefore validat
 }
 ```
 
-- [ ] **Step 5: Create content/scenarios/aircraft-manuals.json**
+- [ ] **Step 5: Create content/scenarios/support-kb.json**
 
 ```json
 {
-  "id": "aircraft-manuals",
-  "title": "AI rollout for aircraft-manual search",
-  "description": "A Digital Project Manager must design a 3-month GenAI adoption strategy helping engineers search thousands of pages of technical aircraft manuals — balancing speed, user training, and strict data-security compliance.",
-  "goodPrompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search and synthesize thousands of pages of technical aircraft manuals, balancing rollout speed, user training, and strict data-security compliance. Use a professional tone suitable for senior leadership. Present it as a table with columns for phase, actions, owners, and milestones. For example, a phase row could be: 'Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant | Digital PM | 80% pilot activation'. Do not include confidential program names; if you are unsure about a detail, say so rather than inventing it. What questions do you have for me that would help you provide the best output?",
+  "id": "support-kb",
+  "title": "AI rollout for support knowledge-base search",
+  "description": "A Program Manager must design a 3-month GenAI adoption plan helping support agents search thousands of pages of product manuals and policy documents — balancing speed, agent training, and strict data-privacy compliance.",
+  "goodPrompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search and synthesize thousands of pages of product manuals and policy documents, balancing rollout speed, agent training, and strict data-privacy compliance. Use a professional tone suitable for senior leadership. Present it as a table with columns for phase, actions, owners, and milestones. For example, a phase row could be: 'Month 1 — Pilot | Onboard 20 agents to the search assistant | Program PM | 80% pilot activation'. Do not include confidential customer data; if you are unsure about a detail, say so rather than inventing it. What questions do you have for me that would help you provide the best output?",
   "badPrompt": "help me with AI rollout stuff for the docs thing, make it good",
   "documents": [
-    { "id": "manual_04.pdf", "title": "A320 Maintenance Manual, ch. 4", "keywords": ["aircraft", "manual", "maintenance", "engineers", "technical"] },
-    { "id": "rollout_faq.md", "title": "GenAI Rollout FAQ", "keywords": ["rollout", "adoption", "strategy", "training", "ai", "generative"] },
-    { "id": "security_policy.pdf", "title": "Data Security & Compliance Policy", "keywords": ["security", "compliance", "data", "confidential"] },
+    { "id": "product_manual_12.pdf", "title": "Product Care Manual, vol. 12", "keywords": ["product", "manual", "care", "agents", "support"] },
+    { "id": "rollout_faq.md", "title": "GenAI Rollout FAQ", "keywords": ["rollout", "adoption", "plan", "training", "ai", "generative"] },
+    { "id": "privacy_policy.pdf", "title": "Customer Data Privacy Policy", "keywords": ["privacy", "compliance", "data", "confidential"] },
     { "id": "hr_policy.doc", "title": "HR Leave Policy", "keywords": ["leave", "holiday", "hr"] }
   ],
   "tools": [
-    { "name": "search_manuals", "goodArgs": "query=\"AI adoption strategy aircraft manuals\", top_k=3", "description": "Searches the technical document index" },
+    { "name": "search_kb", "goodArgs": "query=\"AI adoption plan product manuals\", top_k=3", "description": "Searches the support knowledge-base index" },
     { "name": "create_ticket", "goodArgs": "", "description": "Opens an IT service ticket" },
     { "name": "send_email", "goodArgs": "", "description": "Sends an email on your behalf" }
   ],
   "responses": {
-    "excellent": "# 3-Month AI Implementation & Adoption Strategy\n\n| Phase | Actions | Owners | Milestones |\n|---|---|---|---|\n| Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant; baseline search-time metrics; security review sign-off | Digital PM · InfoSec | 80% pilot activation, zero security findings |\n| Month 2 — Expand | Train 3 engineering teams; publish prompt playbook; weekly office hours | Digital PM · Team Leads | 150 active users, CSAT ≥ 4/5 |\n| Month 3 — Scale | Org-wide rollout; integrate with document index; adoption dashboard | Digital PM · IT Ops | 60% weekly active usage, exec review |\n\nOpen questions for you: preferred pilot team, existing document index vendor, and compliance framework version?",
-    "good": "# 3-Month AI Adoption Strategy\n\n| Phase | Actions | Milestones |\n|---|---|---|\n| Month 1 | Pilot with one engineering team | Pilot live |\n| Month 2 | Training sessions and feedback loop | 100 users trained |\n| Month 3 | Full rollout with security review | Org-wide access |\n\n(Owners not assigned — add stakeholder detail for a sharper plan.)",
-    "fair": "Here's a general 3-month plan for AI adoption: start with a pilot, then training, then a broader rollout. Consider security along the way. You may want to define which tools, which teams, and what success looks like — the request left those open.",
+    "excellent": "# 3-Month AI Adoption Plan\n\n| Phase | Actions | Owners | Milestones |\n|---|---|---|---|\n| Month 1 — Pilot | Onboard 20 agents to the search assistant; baseline search-time metrics; privacy review sign-off | Program PM · InfoSec | 80% pilot activation, zero privacy findings |\n| Month 2 — Expand | Train 3 support teams; publish prompt playbook; weekly office hours | Program PM · Team Leads | 150 active users, CSAT ≥ 4/5 |\n| Month 3 — Scale | Org-wide rollout; integrate with knowledge-base index; adoption dashboard | Program PM · IT Ops | 60% weekly active usage, exec review |\n\nOpen questions for you: preferred pilot team, existing knowledge-base vendor, and compliance framework version?",
+    "good": "# 3-Month AI Adoption Plan\n\n| Phase | Actions | Milestones |\n|---|---|---|\n| Month 1 | Pilot with one support team | Pilot live |\n| Month 2 | Training sessions and feedback loop | 100 users trained |\n| Month 3 | Full rollout with privacy review | Org-wide access |\n\n(Owners not assigned — add stakeholder detail for a sharper plan.)",
+    "fair": "Here's a general 3-month plan for AI adoption: start with a pilot, then training, then a broader rollout. Consider data privacy along the way. You may want to define which tools, which teams, and what success looks like — the request left those open.",
     "poor": "Sure! AI rollout is exciting. You could try some AI tools for your documents, maybe run a survey, and see what sticks. Popular options include various chatbots. (⚠ This response guessed at your intent — the prompt gave no role, no deliverable, no constraints, and no format.)"
   }
 }
@@ -594,7 +594,7 @@ Expected: content tests PASS (lessons dir may not exist yet — test tolerates t
 
 ```bash
 git add Prompt_Engineering
-git commit -m "feat(promptlab): shared types, zod content schemas, scoring rules + aircraft scenario + glossary"
+git commit -m "feat(promptlab): shared types, zod content schemas, scoring rules + support-kb scenario + glossary"
 ```
 
 ---
@@ -623,7 +623,7 @@ const rules = scoringRulesSchema.parse(
   JSON.parse(readFileSync(join(__dirname, '..', 'content', 'rules', 'scoring-rules.json'), 'utf-8')),
 ) as ScoringRules;
 
-const GOOD = 'You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Use a professional tone. Present it as a table with phases, owners and milestones. For example: "Month 1 — Pilot | Onboard 20 engineers". Do not include confidential data. What questions do you have for me that would help you provide the best output?';
+const GOOD = 'You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Use a professional tone. Present it as a table with phases, owners and milestones. For example: "Month 1 — Pilot | Onboard 20 agents". Do not include confidential data. What questions do you have for me that would help you provide the best output?';
 const BAD = 'help me with AI rollout stuff for the docs thing, make it good';
 
 describe('bandFor', () => {
@@ -638,7 +638,7 @@ describe('bandFor', () => {
 });
 
 describe('scorePrompt', () => {
-  it('detects all 7 elements in the good aircraft prompt', () => {
+  it('detects all 7 elements in the good prompt', () => {
     const r = scorePrompt(GOOD, rules);
     expect(r.elements).toHaveLength(7);
     expect(r.elements.map((e) => e.element)).toEqual(['persona', 'task', 'context', 'format', 'examples', 'tone', 'safeguards']);
@@ -777,9 +777,9 @@ describe('analyzeTokens', () => {
     expect(analyzeTokens('')).toEqual({ count: 0, costUsd: 0, tokens: [] });
   });
   it('counts tokens and decodes chips that reassemble the text', () => {
-    const r = analyzeTokens('You are a Digital Project Manager.');
+    const r = analyzeTokens('You are a Program Manager.');
     expect(r.count).toBeGreaterThan(4);
-    expect(r.tokens.join('')).toBe('You are a Digital Project Manager.');
+    expect(r.tokens.join('')).toBe('You are a Program Manager.');
     expect(r.count).toBe(r.tokens.length);
   });
   it('estimates cost from the exported rate', () => {
@@ -980,7 +980,7 @@ import type { Scenario, ScoringRules } from '../src/types';
 
 const read = (p: string[]) => JSON.parse(readFileSync(join(__dirname, '..', ...p), 'utf-8'));
 const rules = scoringRulesSchema.parse(read(['content', 'rules', 'scoring-rules.json'])) as ScoringRules;
-const scenario = scenarioSchema.parse(read(['content', 'scenarios', 'aircraft-manuals.json'])) as Scenario;
+const scenario = scenarioSchema.parse(read(['content', 'scenarios', 'support-kb.json'])) as Scenario;
 
 describe('simulate', () => {
   const goodScore = scorePrompt(scenario.goodPrompt, rules);
@@ -991,7 +991,7 @@ describe('simulate', () => {
   it('good prompt: relevant retrieval, low risk, correct tool, A-grade', () => {
     expect(good.retrieval.filter((r) => r.relevant).length).toBeGreaterThanOrEqual(2);
     expect(good.hallucinationRisk).toBe('low');
-    expect(good.tool).toMatchObject({ called: true, correct: true, name: 'search_manuals' });
+    expect(good.tool).toMatchObject({ called: true, correct: true, name: 'search_kb' });
     expect(['A+', 'A']).toContain(good.response.grade);
     expect(good.response.text).toBe(scenario.responses[good.band]);
   });
@@ -1097,7 +1097,7 @@ export function simulate(score: ScoreResult, scenario: Scenario, promptText: str
 - [ ] **Step 4: Run tests to pass**
 
 Run: `npx vitest run tests/simulate.test.ts`
-Expected: PASS. (The bad aircraft prompt contains "AI rollout" but band-poor factor 0.3 keeps every similarity below 0.55 → all irrelevant; if a threshold test fails, tune `RELEVANT_THRESHOLD` or `BAND_FACTOR` — never the test.)
+Expected: PASS. (The bad prompt contains "AI rollout" but band-poor factor 0.3 keeps every similarity below 0.55 → all irrelevant; if a threshold test fails, tune `RELEVANT_THRESHOLD` or `BAND_FACTOR` — never the test.)
 
 - [ ] **Step 5: Run the full suite and commit**
 
@@ -1494,7 +1494,7 @@ export function Expanded({ revealed: _r }: { revealed: boolean }) {
   const { retrieval, scenario } = useLab((s) => ({ retrieval: s.outcome.retrieval, scenario: s.scenario }));
   return (
     <div className="expanded-body">
-      <p>RAG embeds your prompt into numbers and searches the document index for the nearest chunks. Specific keywords ("aircraft manuals", "adoption strategy") land near the right documents; vague words land nowhere useful — garbage in, garbage retrieved.</p>
+      <p>RAG embeds your prompt into numbers and searches the document index for the nearest chunks. Specific keywords ("product manuals", "adoption plan") land near the right documents; vague words land nowhere useful — garbage in, garbage retrieved.</p>
       <ol className="rag-steps"><li>Embed prompt → vector</li><li>Similarity search over {scenario.documents.length} indexed docs</li><li>Top-3 chunks pasted into the context window</li></ol>
       {retrieval.map((r) => (
         <p key={r.docId} className={r.relevant ? 'bonus-line' : 'flag-line'}>
@@ -2157,14 +2157,14 @@ git commit -m "feat(promptlab): compare mode with A/B lanes"
 - Consumes: `loadLessons()`, `loadGlossary()`, `RULES.bestPractices` (Task 2), store, `scorePrompt` for challenges, `<PipelineCanvas />`.
 - Produces: `<Learn />` (lesson list sidebar → step navigation driving the shared canvas: each step may set the composer prompt via `setPrompt(step.prompt, variant)` and spotlights one stage by setting `expandedStage`-independent highlight class), `<CheatSheet />` (best practices + glossary, print-friendly). Lesson completion stored in `localStorage` key `promptlab.lessons.done` (JSON string array of lesson ids).
 
-- [ ] **Step 1: Create the 8 lesson JSON files** (complete content below — one file each; `scenarioId` is always `aircraft-manuals`)
+- [ ] **Step 1: Create the 8 lesson JSON files** (complete content below — one file each; `scenarioId` is always `support-kb`)
 
 `content/lessons/01-press-enter.json`:
 ```json
 {
-  "id": "press-enter", "order": 1, "title": "What happens when you press Enter", "scenarioId": "aircraft-manuals",
+  "id": "press-enter", "order": 1, "title": "What happens when you press Enter", "scenarioId": "support-kb",
   "steps": [
-    { "spotlight": "none", "heading": "Your prompt takes a journey", "body": "Between pressing Enter and seeing an answer, your words travel through six stations. Watch the whole trip once — then we'll stop at each station.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table.", "variant": "good" },
+    { "spotlight": "none", "heading": "Your prompt takes a journey", "body": "Between pressing Enter and seeing an answer, your words travel through six stations. Watch the whole trip once — then we'll stop at each station.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Present it as a table.", "variant": "good" },
     { "spotlight": "analyzer", "heading": "Station 1 — the Analyzer", "body": "First, the quality of your prompt is what it is — no system can add information you didn't provide. The Analyzer shows what your prompt contains: who the AI should be, what to do, the context, and the shape of the answer." },
     { "spotlight": "tokenizer", "heading": "Station 2 — the Tokenizer", "body": "Your sentence shatters into tokens — the ~¾-word pieces models actually read. Every token costs money, time, and space." },
     { "spotlight": "rag", "heading": "Station 3 — Retrieval (RAG)", "body": "The system searches your organisation's documents for chunks similar to your prompt and pastes the best matches alongside it. Specific words find the right documents." },
@@ -2172,35 +2172,35 @@ git commit -m "feat(promptlab): compare mode with A/B lanes"
     { "spotlight": "mcp", "heading": "Station 5 — Tools (MCP)", "body": "If your task needs an action — searching an index, opening a ticket — the model picks a tool and fills in its arguments, using only what your prompt told it." },
     { "spotlight": "response", "heading": "Station 6 — the Response", "body": "The answer's quality was largely decided back at Station 1. That's the core idea of this whole lab: prompts are the steering wheel." }
   ],
-  "challenge": { "brief": "Write any prompt for the aircraft-manuals scenario and run it through the pipeline. Just get a feel for the flow — any score is fine.", "requiredElements": ["task"] }
+  "challenge": { "brief": "Write any prompt for the support-kb scenario and run it through the pipeline. Just get a feel for the flow — any score is fine.", "requiredElements": ["task"] }
 }
 ```
 
 `content/lessons/02-anatomy.json`:
 ```json
 {
-  "id": "anatomy", "order": 2, "title": "Anatomy of a great prompt (PTCF)", "scenarioId": "aircraft-manuals",
+  "id": "anatomy", "order": 2, "title": "Anatomy of a great prompt (PTCF)", "scenarioId": "support-kb",
   "steps": [
     { "spotlight": "composer", "heading": "Four load-bearing walls", "body": "Strong prompts are built from Persona, Task, Context, and Format. Watch the score climb as we add each one. We start with almost nothing:", "prompt": "help with an AI strategy", "variant": "bad" },
-    { "spotlight": "analyzer", "heading": "P — Persona", "body": "'You are a Digital Project Manager at an aerospace company.' The model now answers with a PM's priorities and vocabulary instead of generic filler.", "prompt": "You are a Digital Project Manager at an aerospace company. Help with an AI strategy." },
-    { "spotlight": "analyzer", "heading": "T — Task", "body": "One specific action verb and a named deliverable: 'Create a 3-month AI Implementation & Adoption Strategy.' Vague asks get vague answers.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy." },
-    { "spotlight": "analyzer", "heading": "C — Context", "body": "The details that change the answer: what the tools are for, who uses them, and the constraints — speed, training, data-security compliance.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance." },
-    { "spotlight": "analyzer", "heading": "F — Format", "body": "Say what the output should look like: 'Present it as a table with phases, owners, and milestones.' Never make the model guess the shape.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table with phases, owners, and milestones." },
+    { "spotlight": "analyzer", "heading": "P — Persona", "body": "'You are a Program Manager at a retail company.' The model now answers with a PM's priorities and vocabulary instead of generic filler.", "prompt": "You are a Program Manager at a retail company. Help with an AI strategy." },
+    { "spotlight": "analyzer", "heading": "T — Task", "body": "One specific action verb and a named deliverable: 'Create a 3-month AI Adoption Plan.' Vague asks get vague answers.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan." },
+    { "spotlight": "analyzer", "heading": "C — Context", "body": "The details that change the answer: what the tools are for, who uses them, and the constraints — speed, training, data-privacy compliance.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance." },
+    { "spotlight": "analyzer", "heading": "F — Format", "body": "Say what the output should look like: 'Present it as a table with phases, owners, and milestones.' Never make the model guess the shape.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Present it as a table with phases, owners, and milestones." },
     { "spotlight": "response", "heading": "From 'poor' to 'good' in four moves", "body": "Same request, four additions — completely different outcome. Run it and compare against where we started." }
   ],
-  "challenge": { "brief": "The Digital function wants to accelerate internal adoption of GenAI tools for engineers searching technical aircraft manuals. As Digital PM, draft a prompt for a 3-month AI Implementation & Adoption Strategy. Your prompt MUST include: Persona, Task, Context, Format.", "requiredElements": ["persona", "task", "context", "format"] }
+  "challenge": { "brief": "Support leadership wants to accelerate internal adoption of a GenAI search assistant for agents searching product manuals. As Program Manager, draft a prompt for a 3-month AI Adoption Plan. Your prompt MUST include: Persona, Task, Context, Format.", "requiredElements": ["persona", "task", "context", "format"] }
 }
 ```
 
 `content/lessons/03-good-vs-bad.json`:
 ```json
 {
-  "id": "good-vs-bad", "order": 3, "title": "Good vs Bad, side by side", "scenarioId": "aircraft-manuals",
+  "id": "good-vs-bad", "order": 3, "title": "Good vs Bad, side by side", "scenarioId": "support-kb",
   "steps": [
     { "spotlight": "none", "heading": "The race", "body": "Two prompts, identical scenario. 'help me with AI rollout stuff for the docs thing, make it good' versus the full PTCF prompt. Open Compare mode after this lesson to watch them race.", "variant": "compare" },
     { "spotlight": "rag", "heading": "Where the bad prompt loses first", "body": "'stuff' and 'the docs thing' match nothing in the document index — retrieval returns noise, and the model gets no facts to work with.", "prompt": "help me with AI rollout stuff for the docs thing, make it good", "variant": "bad" },
     { "spotlight": "llm", "heading": "Garbage in, confident garbage out", "body": "With no persona, no deliverable, and junk retrieval, the model must guess everything. It will still answer fluently — that's what makes hallucination dangerous." },
-    { "spotlight": "response", "heading": "D− vs A+", "body": "The bad prompt earns generic advice with invented details. The good prompt earns a structured, presentable strategy. The only difference was the prompt.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table with phases, owners, and milestones.", "variant": "good" }
+    { "spotlight": "response", "heading": "D− vs A+", "body": "The bad prompt earns generic advice with invented details. The good prompt earns a structured, presentable plan. The only difference was the prompt.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Present it as a table with phases, owners, and milestones.", "variant": "good" }
   ],
   "challenge": { "brief": "Take the bad prompt 'help me with AI rollout stuff for the docs thing, make it good' and fix it. Reach at least a 'good' score (65+) with Persona, Task, Context and Format present.", "requiredElements": ["persona", "task", "context", "format"] }
 }
@@ -2209,12 +2209,12 @@ git commit -m "feat(promptlab): compare mode with A/B lanes"
 `content/lessons/04-leveling-up.json`:
 ```json
 {
-  "id": "leveling-up", "order": 4, "title": "Leveling up: Examples, Tone, Safeguards", "scenarioId": "aircraft-manuals",
+  "id": "leveling-up", "order": 4, "title": "Leveling up: Examples, Tone, Safeguards", "scenarioId": "support-kb",
   "steps": [
-    { "spotlight": "analyzer", "heading": "Beyond PTCF", "body": "Your lesson-2 prompt scores well. Three additions push it to excellent — and they're exactly what separates workshop prompts from production prompts.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table with phases, owners, and milestones.", "variant": "good" },
-    { "spotlight": "analyzer", "heading": "Examples — show, don't describe", "body": "One sample row teaches the model your expectations better than a paragraph of description: 'For example: Month 1 — Pilot | Onboard 20 engineers | Digital PM | 80% activation'.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Present it as a table with phases, owners, and milestones. For example: 'Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant | Digital PM | 80% pilot activation'." },
-    { "spotlight": "analyzer", "heading": "Tone — name the voice", "body": "'Use a professional tone suitable for senior leadership.' Without it the model picks a voice at random — sometimes chatty, sometimes academic.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Use a professional tone suitable for senior leadership. Present it as a table with phases, owners, and milestones. For example: 'Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant | Digital PM | 80% pilot activation'." },
-    { "spotlight": "analyzer", "heading": "Safeguards — set the guardrails", "body": "'Do not include confidential program names; if you are unsure about a detail, say so rather than inventing it.' This is your anti-hallucination clause.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Use a professional tone suitable for senior leadership. Present it as a table with phases, owners, and milestones. For example: 'Month 1 — Pilot | Onboard 20 engineers to the manual-search assistant | Digital PM | 80% pilot activation'. Do not include confidential program names; if you are unsure about a detail, say so rather than inventing it." },
+    { "spotlight": "analyzer", "heading": "Beyond PTCF", "body": "Your lesson-2 prompt scores well. Three additions push it to excellent — and they're exactly what separates workshop prompts from production prompts.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Present it as a table with phases, owners, and milestones.", "variant": "good" },
+    { "spotlight": "analyzer", "heading": "Examples — show, don't describe", "body": "One sample row teaches the model your expectations better than a paragraph of description: 'For example: Month 1 — Pilot | Onboard 20 agents | Program PM | 80% activation'.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Present it as a table with phases, owners, and milestones. For example: 'Month 1 — Pilot | Onboard 20 agents to the search assistant | Program PM | 80% pilot activation'." },
+    { "spotlight": "analyzer", "heading": "Tone — name the voice", "body": "'Use a professional tone suitable for senior leadership.' Without it the model picks a voice at random — sometimes chatty, sometimes academic.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Use a professional tone suitable for senior leadership. Present it as a table with phases, owners, and milestones. For example: 'Month 1 — Pilot | Onboard 20 agents to the search assistant | Program PM | 80% pilot activation'." },
+    { "spotlight": "analyzer", "heading": "Safeguards — set the guardrails", "body": "'Do not include confidential customer data; if you are unsure about a detail, say so rather than inventing it.' This is your anti-hallucination clause.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Use a professional tone suitable for senior leadership. Present it as a table with phases, owners, and milestones. For example: 'Month 1 — Pilot | Onboard 20 agents to the search assistant | Program PM | 80% pilot activation'. Do not include confidential customer data; if you are unsure about a detail, say so rather than inventing it." },
     { "spotlight": "response", "heading": "Write like you talk", "body": "Notice the prompt reads like natural speech to a colleague — full sentences, your own words. That's the style that works. Run it: all seven elements, excellent band." }
   ],
   "challenge": { "brief": "Extend your lesson-2 prompt with Examples, Tone and Safeguards. Target: all 7 elements detected and an 'excellent' score (85+).", "requiredElements": ["persona", "task", "context", "format", "examples", "tone", "safeguards"] }
@@ -2224,65 +2224,65 @@ git commit -m "feat(promptlab): compare mode with A/B lanes"
 `content/lessons/05-token-economy.json`:
 ```json
 {
-  "id": "token-economy", "order": 5, "title": "The token economy", "scenarioId": "aircraft-manuals",
+  "id": "token-economy", "order": 5, "title": "The token economy", "scenarioId": "support-kb",
   "steps": [
     { "spotlight": "tokenizer", "heading": "Tokens are the currency", "body": "Every token costs three ways: money (per-token pricing), latency (models read sequentially), and context space (the window is finite). Here's a padded prompt:", "prompt": "Hello! I hope you are doing well. Could you please kindly help me — I would like you to create a summary of our AI rollout plan in order to be able to inform the team, it would be great if you could keep it basically very short. Thank you in advance." },
     { "spotlight": "tokenizer", "heading": "The optimizer's diff", "body": "Open the Tokenizer stage: 'could you please kindly' → gone; 'in order to be able to' → 'to'; the greeting and sign-off → gone. Same meaning, ~40% fewer tokens." },
-    { "spotlight": "tokenizer", "heading": "Formatting is token strategy", "body": "Bullets beat prose for lists. Delimiters (``` or \\\"\\\"\\\") separate instructions from data. Front-load the task; don't repeat instructions. Politeness padding does nothing — models don't have feelings, they have budgets.", "prompt": "Summarize our AI rollout plan for the team in 5 bullets." },
+    { "spotlight": "tokenizer", "heading": "Formatting is token strategy", "body": "Bullets beat prose for lists. Delimiters (``` or \"\"\") separate instructions from data. Front-load the task; don't repeat instructions. Politeness padding does nothing — models don't have feelings, they have budgets.", "prompt": "Summarize our AI rollout plan for the team in 5 bullets." },
     { "spotlight": "response", "heading": "Optimized ≠ stripped bare", "body": "Keep every token that adds information (persona, context, format). Cut every token that doesn't (greetings, hedges, filler). Score stays; cost drops." }
   ],
-  "challenge": { "brief": "Write a prompt for the aircraft-manuals scenario that scores 'good' or better using at most 60 tokens. Watch the counter as you type.", "requiredElements": ["task", "context"] }
+  "challenge": { "brief": "Write a prompt for the support-kb scenario that scores 'good' or better using at most 60 tokens. Watch the counter as you type.", "requiredElements": ["task", "context"] }
 }
 ```
 
 `content/lessons/06-rag.json`:
 ```json
 {
-  "id": "rag", "order": 6, "title": "How RAG reads your prompt", "scenarioId": "aircraft-manuals",
+  "id": "rag", "order": 6, "title": "How RAG reads your prompt", "scenarioId": "support-kb",
   "steps": [
-    { "spotlight": "rag", "heading": "Search before answer", "body": "RAG turns your prompt into an embedding — a point in meaning-space — and finds document chunks nearby. Your prompt IS the search query, whether you meant it as one or not.", "prompt": "You are a Digital Project Manager. Create an adoption strategy for the Generative AI tools that help engineers search technical aircraft manuals, respecting our data-security compliance policy.", "variant": "good" },
-    { "spotlight": "rag", "heading": "Keywords steer retrieval", "body": "'aircraft manuals', 'adoption strategy', 'data-security compliance' — each specific phrase pulls the matching document up the ranking. Watch the similarity bars." },
+    { "spotlight": "rag", "heading": "Search before answer", "body": "RAG turns your prompt into an embedding — a point in meaning-space — and finds document chunks nearby. Your prompt IS the search query, whether you meant it as one or not.", "prompt": "You are a Program Manager. Create an adoption plan for the Generative AI search assistant that helps agents search product manuals, respecting our data-privacy compliance policy.", "variant": "good" },
+    { "spotlight": "rag", "heading": "Keywords steer retrieval", "body": "'product manuals', 'adoption plan', 'data-privacy compliance' — each specific phrase pulls the matching document up the ranking. Watch the similarity bars." },
     { "spotlight": "rag", "heading": "Vague words retrieve noise", "body": "Now the same request, vaguely: watch relevant documents fall and the HR leave policy float up. The retriever isn't stupid — it was given nothing to grip.", "prompt": "help me with the rollout stuff for those docs", "variant": "bad" },
     { "spotlight": "llm", "heading": "Retrieval quality caps answer quality", "body": "The model can only cite what retrieval delivered. Junk chunks + vague prompt = the model improvises. This is why prompt specificity matters MORE in RAG systems, not less." }
   ],
-  "challenge": { "brief": "Write a prompt whose retrieval finds at least 2 relevant documents (similarity ≥ 0.55). Use specific keywords from the scenario: manuals, engineers, rollout, security…", "requiredElements": ["task", "context"] }
+  "challenge": { "brief": "Write a prompt whose retrieval finds at least 2 relevant documents (similarity ≥ 0.55). Use specific keywords from the scenario: manuals, agents, rollout, privacy…", "requiredElements": ["task", "context"] }
 }
 ```
 
 `content/lessons/07-tools-mcp.json`:
 ```json
 {
-  "id": "tools-mcp", "order": 7, "title": "Prompts that act: Tools & MCP", "scenarioId": "aircraft-manuals",
+  "id": "tools-mcp", "order": 7, "title": "Prompts that act: Tools & MCP", "scenarioId": "support-kb",
   "steps": [
-    { "spotlight": "mcp", "heading": "From words to actions", "body": "Modern assistants don't just write — they call tools: search indexes, ticket systems, email. MCP is the protocol that lists the tools; your prompt decides which get used and how.", "prompt": "You are a Digital Project Manager. Search our manual index for AI adoption strategy material and create a summary table of the top findings.", "variant": "good" },
-    { "spotlight": "mcp", "heading": "Clear task → correct call", "body": "'Search our manual index for AI adoption strategy material' maps cleanly to search_manuals(query=\\\"AI adoption strategy aircraft manuals\\\") — right tool, right arguments, filled entirely from your words." },
+    { "spotlight": "mcp", "heading": "From words to actions", "body": "Modern assistants don't just write — they call tools: search indexes, ticket systems, email. MCP is the protocol that lists the tools; your prompt decides which get used and how.", "prompt": "You are a Program Manager. Search our knowledge-base index for AI adoption plan material and create a summary table of the top findings.", "variant": "good" },
+    { "spotlight": "mcp", "heading": "Clear task → correct call", "body": "'Search our knowledge-base index for AI adoption plan material' maps cleanly to search_kb(query=\"AI adoption plan product manuals\") — right tool, right arguments, filled entirely from your words." },
     { "spotlight": "mcp", "heading": "Vague task → wrong call or none", "body": "'sort out the docs situation' — which tool is that? The model either guesses (create_ticket? send_email?) or does nothing. Ambiguity that a human colleague would clarify, a tool-calling model just… resolves badly.", "prompt": "sort out the docs situation", "variant": "bad" },
     { "spotlight": "response", "heading": "Agentic stakes are higher", "body": "A vague chat prompt wastes one answer. A vague agent prompt sends the wrong email. As AI takes actions, prompt precision stops being style and becomes safety." }
   ],
-  "challenge": { "brief": "Write a prompt that would make the model call search_manuals with sensible arguments: name the action, the index, and what to do with the results.", "requiredElements": ["task", "context", "format"] }
+  "challenge": { "brief": "Write a prompt that would make the model call search_kb with sensible arguments: name the action, the index, and what to do with the results.", "requiredElements": ["task", "context", "format"] }
 }
 ```
 
 `content/lessons/08-iteration.json`:
 ```json
 {
-  "id": "iteration", "order": 8, "title": "The iteration playbook", "scenarioId": "aircraft-manuals",
+  "id": "iteration", "order": 8, "title": "The iteration playbook", "scenarioId": "support-kb",
   "steps": [
     { "spotlight": "composer", "heading": "First drafts are drafts", "body": "Even excellent prompts rarely nail it first try — and that's fine. Professionals iterate. Four moves make up the playbook.", "variant": "good" },
     { "spotlight": "composer", "heading": "Move 1 — Nudge", "body": "Follow up conversationally: 'Make the second phase more detailed', 'Shorten the summary', 'Turn the risks into a table'. Small steering beats rewriting from scratch." },
-    { "spotlight": "composer", "heading": "Move 2 — Chain", "body": "Break big jobs into a sequence: prompt 1 outlines the strategy → prompt 2 details Month 1 → prompt 3 drafts the training plan. Each prompt is small, checkable, and feeds the next. Close one task before starting another — don't change topics mid-thread.", "prompt": "First, list the 6 sections a 3-month AI adoption strategy should contain. Do not write the sections yet." },
-    { "spotlight": "llm", "heading": "Move 3 — Trigger reasoning", "body": "'Let's think step-by-step' and 'show your reasoning' activate more careful generation patterns — cheap words, measurable gains on complex tasks.", "prompt": "Let's think step-by-step. You are a Digital Project Manager. Plan the security-review milestones for a GenAI rollout across 3 months." },
-    { "spotlight": "composer", "heading": "Move 4 — Ask for feedback", "body": "End with: 'What questions do you have for me that would help you provide the best output?' The model surfaces your blind spots — missing context you didn't know you were withholding.", "prompt": "You are a Digital Project Manager at an aerospace company. Create a 3-month AI adoption strategy for engineers searching aircraft manuals. Present it as a table. What questions do you have for me that would help you provide the best output?" },
+    { "spotlight": "composer", "heading": "Move 2 — Chain", "body": "Break big jobs into a sequence: prompt 1 outlines the plan → prompt 2 details Month 1 → prompt 3 drafts the training plan. Each prompt is small, checkable, and feeds the next. Close one task before starting another — don't change topics mid-thread.", "prompt": "First, list the 6 sections a 3-month AI adoption plan should contain. Do not write the sections yet." },
+    { "spotlight": "llm", "heading": "Move 3 — Trigger reasoning", "body": "'Let's think step-by-step' and 'show your reasoning' activate more careful generation patterns — cheap words, measurable gains on complex tasks.", "prompt": "Let's think step-by-step. You are a Program Manager. Plan the privacy-review milestones for a GenAI rollout across 3 months." },
+    { "spotlight": "composer", "heading": "Move 4 — Ask for feedback", "body": "End with: 'What questions do you have for me that would help you provide the best output?' The model surfaces your blind spots — missing context you didn't know you were withholding.", "prompt": "You are a Program Manager at a retail company. Create a 3-month AI adoption plan for support agents searching product manuals. Present it as a table. What questions do you have for me that would help you provide the best output?" },
     { "spotlight": "response", "heading": "You've completed the course", "body": "PTCF + Examples/Tone/Safeguards + token economy + retrieval-aware wording + tool-clear tasks + iteration. Head to the Sandbox and make it yours — or the Cheat Sheet for the printable rules." }
   ],
-  "challenge": { "brief": "Write a prompt that uses at least two playbook moves: a step-by-step trigger AND an ask-for-feedback close, on any aircraft-manuals task.", "requiredElements": ["task"] }
+  "challenge": { "brief": "Write a prompt that uses at least two playbook moves: a step-by-step trigger AND an ask-for-feedback close, on any support-kb task.", "requiredElements": ["task"] }
 }
 ```
 
 - [ ] **Step 2: Run content tests** — the Task 2 test already validates lessons.
 
 Run: `npx vitest run tests/content.test.ts`
-Expected: PASS — all 8 lessons parse and reference `aircraft-manuals`.
+Expected: PASS — all 8 lessons parse and reference `support-kb`.
 
 - [ ] **Step 3: Append Learn/CheatSheet styles to src/app/app.css**
 
@@ -2672,7 +2672,7 @@ Manual keyboard check in dev: Tab reaches tabs → composer → run → every st
 
 - [ ] **Step 3: Write CONTRIBUTING.md** — four copy-paste recipes, each with a worked example:
   1. **Add a lesson**: copy `content/lessons/08-iteration.json`, change `id/order/title/steps/challenge`, run `npm test` (schema-validated automatically), done — no code.
-  2. **Add a scenario**: copy `content/scenarios/aircraft-manuals.json`, keep ≥3 documents / ≥2 tools / all 4 band responses; first tool = the correct one.
+  2. **Add a scenario**: copy `content/scenarios/support-kb.json`, keep ≥3 documents / ≥2 tools / all 4 band responses; first tool = the correct one.
   3. **Add a scoring rule**: add pattern to `content/rules/scoring-rules.json` elements/flags/bonuses; element weights must sum to 100 (test enforces).
   4. **Add a pipeline stage**: create `src/pipeline/stages/YourStage.tsx` exporting `Card`/`Expanded`, register in `src/pipeline/registry.ts`, update slot CSS if >6 stages.
   Plus: dev setup, test commands, PR checklist (typecheck, test, build all green).

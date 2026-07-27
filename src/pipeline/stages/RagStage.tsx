@@ -24,7 +24,7 @@ export function Expanded({ revealed: _r }: { revealed: boolean }) {
   const scenario = useLab((s) => s.scenario);
   return (
     <div className="expanded-body">
-      <p>RAG embeds your prompt into numbers and searches the document index for the nearest chunks. Specific keywords ("aircraft manuals", "adoption strategy") land near the right documents; vague words land nowhere useful — garbage in, garbage retrieved.</p>
+      <p>RAG embeds your prompt into numbers and searches the document index for the nearest chunks. Specific keywords ("product manuals", "adoption plan") land near the right documents; vague words land nowhere useful — garbage in, garbage retrieved.</p>
       <ol className="rag-steps"><li>Embed prompt → vector</li><li>Similarity search over {scenario.documents.length} indexed docs</li><li>Top-3 chunks pasted into the context window</li></ol>
       {retrieval.map((r) => (
         <p key={r.docId} className={r.relevant ? 'bonus-line' : 'flag-line'}>

@@ -42,7 +42,7 @@ PromptLab/
 ├─ package.json  tsconfig.json  vite.config.ts  index.html
 ├─ content/
 │  ├─ rules/scoring-rules.json         # detectors, flags, bonuses, optimizer fillers, best practices
-│  ├─ scenarios/aircraft-manuals.json  # featured scenario (good/bad prompts, docs, tools, responses)
+│  ├─ scenarios/support-kb.json  # featured scenario (good/bad prompts, docs, tools, responses)
 │  ├─ lessons/01…08-*.json             # 8 lessons
 │  └─ glossary.json
 ├─ src/

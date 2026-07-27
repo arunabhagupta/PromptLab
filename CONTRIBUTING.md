@@ -43,7 +43,7 @@ Lessons live in `content/lessons/*.json` and are picked up automatically via a V
 
 ```json
 {
-  "id": "my-lesson", "order": 9, "title": "My new lesson", "scenarioId": "aircraft-manuals",
+  "id": "my-lesson", "order": 9, "title": "My new lesson", "scenarioId": "support-kb",
   "steps": [
     { "spotlight": "composer", "heading": "Step one", "body": "Explain the idea here." },
     { "spotlight": "llm", "heading": "Step two", "body": "Point at a stage and explain what changes.", "prompt": "You are a ... Create a ...", "variant": "good" }
@@ -62,7 +62,7 @@ Scenarios live in `content/scenarios/*.json`, also auto-loaded via glob. They mu
 
 1. Copy the featured scenario as a template:
    ```bash
-   cp content/scenarios/aircraft-manuals.json content/scenarios/my-scenario.json
+   cp content/scenarios/support-kb.json content/scenarios/my-scenario.json
    ```
 2. Edit `id`, `title`, `description`, `goodPrompt` (≥50 chars), `badPrompt`, `documents` (≥3), `tools` (≥2, correct tool first), and `responses` (all 4 bands, ideally written to visibly escalate in quality/specificity).
 3. Run `npm test` to validate against the schema.

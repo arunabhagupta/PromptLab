@@ -6,9 +6,9 @@ describe('analyzeTokens', () => {
     expect(analyzeTokens('')).toEqual({ count: 0, costUsd: 0, tokens: [] });
   });
   it('counts tokens and decodes chips that reassemble the text', () => {
-    const r = analyzeTokens('You are a Digital Project Manager.');
+    const r = analyzeTokens('You are a Program Manager.');
     expect(r.count).toBeGreaterThan(4);
-    expect(r.tokens.join('')).toBe('You are a Digital Project Manager.');
+    expect(r.tokens.join('')).toBe('You are a Program Manager.');
     expect(r.count).toBe(r.tokens.length);
   });
   it('estimates cost from the exported rate', () => {

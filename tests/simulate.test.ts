@@ -8,7 +8,7 @@ import type { Scenario, ScoringRules } from '../src/types';
 
 const read = (p: string[]) => JSON.parse(readFileSync(join(__dirname, '..', ...p), 'utf-8'));
 const rules = scoringRulesSchema.parse(read(['content', 'rules', 'scoring-rules.json'])) as ScoringRules;
-const scenario = scenarioSchema.parse(read(['content', 'scenarios', 'aircraft-manuals.json'])) as Scenario;
+const scenario = scenarioSchema.parse(read(['content', 'scenarios', 'support-kb.json'])) as Scenario;
 
 describe('simulate', () => {
   const goodScore = scorePrompt(scenario.goodPrompt, rules);
@@ -19,7 +19,7 @@ describe('simulate', () => {
   it('good prompt: relevant retrieval, low risk, correct tool, A-grade', () => {
     expect(good.retrieval.filter((r) => r.relevant).length).toBeGreaterThanOrEqual(2);
     expect(good.hallucinationRisk).toBe('low');
-    expect(good.tool).toMatchObject({ called: true, correct: true, name: 'search_manuals' });
+    expect(good.tool).toMatchObject({ called: true, correct: true, name: 'search_kb' });
     expect(['A+', 'A']).toContain(good.response.grade);
     expect(good.response.text).toBe(scenario.responses[good.band]);
   });

@@ -9,7 +9,7 @@ const rules = scoringRulesSchema.parse(
   JSON.parse(readFileSync(join(__dirname, '..', 'content', 'rules', 'scoring-rules.json'), 'utf-8')),
 ) as ScoringRules;
 
-const GOOD = 'You are a Digital Project Manager at an aerospace company. Create a 3-month AI Implementation & Adoption Strategy for rolling out Generative AI tools that help engineers search thousands of pages of technical aircraft manuals, balancing speed, training, and strict data-security compliance. Use a professional tone. Present it as a table with phases, owners and milestones. For example: "Month 1 — Pilot | Onboard 20 engineers". Do not include confidential data. What questions do you have for me that would help you provide the best output?';
+const GOOD = 'You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search thousands of pages of product manuals, balancing speed, training, and strict data-privacy compliance. Use a professional tone. Present it as a table with phases, owners and milestones. For example: "Month 1 — Pilot | Onboard 20 agents". Do not include confidential data. What questions do you have for me that would help you provide the best output?';
 const BAD = 'help me with AI rollout stuff for the docs thing, make it good';
 
 describe('bandFor', () => {
@@ -24,7 +24,7 @@ describe('bandFor', () => {
 });
 
 describe('scorePrompt', () => {
-  it('detects all 7 elements in the good aircraft prompt', () => {
+  it('detects all 7 elements in the good prompt', () => {
     const r = scorePrompt(GOOD, rules);
     expect(r.elements).toHaveLength(7);
     expect(r.elements.map((e) => e.element)).toEqual(['persona', 'task', 'context', 'format', 'examples', 'tone', 'safeguards']);

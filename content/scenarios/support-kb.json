@@ -1,0 +1,24 @@
+{
+  "id": "support-kb",
+  "title": "AI rollout for support knowledge-base search",
+  "description": "A Program Manager must design a 3-month GenAI adoption plan helping support agents search thousands of pages of product manuals and policy documents — balancing speed, agent training, and strict data-privacy compliance.",
+  "goodPrompt": "You are a Program Manager at a retail company. Create a 3-month AI Adoption Plan for rolling out a Generative AI search assistant that helps support agents search and synthesize thousands of pages of product manuals and policy documents, balancing rollout speed, agent training, and strict data-privacy compliance. Use a professional tone suitable for senior leadership. Present it as a table with columns for phase, actions, owners, and milestones. For example, a phase row could be: 'Month 1 — Pilot | Onboard 20 agents to the search assistant | Program PM | 80% pilot activation'. Do not include confidential customer data; if you are unsure about a detail, say so rather than inventing it. What questions do you have for me that would help you provide the best output?",
+  "badPrompt": "help me with AI rollout stuff for the docs thing, make it good",
+  "documents": [
+    { "id": "product_manual_12.pdf", "title": "Product Care Manual, vol. 12", "keywords": ["product", "manual", "care", "agents", "support"] },
+    { "id": "rollout_faq.md", "title": "GenAI Rollout FAQ", "keywords": ["rollout", "adoption", "plan", "training", "ai", "generative"] },
+    { "id": "privacy_policy.pdf", "title": "Customer Data Privacy Policy", "keywords": ["privacy", "compliance", "data", "confidential"] },
+    { "id": "hr_policy.doc", "title": "HR Leave Policy", "keywords": ["leave", "holiday", "hr"] }
+  ],
+  "tools": [
+    { "name": "search_kb", "goodArgs": "query=\"AI adoption plan product manuals\", top_k=3", "description": "Searches the support knowledge-base index" },
+    { "name": "create_ticket", "goodArgs": "", "description": "Opens an IT service ticket" },
+    { "name": "send_email", "goodArgs": "", "description": "Sends an email on your behalf" }
+  ],
+  "responses": {
+    "excellent": "# 3-Month AI Adoption Plan\n\n| Phase | Actions | Owners | Milestones |\n|---|---|---|---|\n| Month 1 — Pilot | Onboard 20 agents to the search assistant; baseline search-time metrics; privacy review sign-off | Program PM · InfoSec | 80% pilot activation, zero privacy findings |\n| Month 2 — Expand | Train 3 support teams; publish prompt playbook; weekly office hours | Program PM · Team Leads | 150 active users, CSAT ≥ 4/5 |\n| Month 3 — Scale | Org-wide rollout; integrate with knowledge-base index; adoption dashboard | Program PM · IT Ops | 60% weekly active usage, exec review |\n\nOpen questions for you: preferred pilot team, existing knowledge-base vendor, and compliance framework version?",
+    "good": "# 3-Month AI Adoption Plan\n\n| Phase | Actions | Milestones |\n|---|---|---|\n| Month 1 | Pilot with one support team | Pilot live |\n| Month 2 | Training sessions and feedback loop | 100 users trained |\n| Month 3 | Full rollout with privacy review | Org-wide access |\n\n(Owners not assigned — add stakeholder detail for a sharper plan.)",
+    "fair": "Here's a general 3-month plan for AI adoption: start with a pilot, then training, then a broader rollout. Consider data privacy along the way. You may want to define which tools, which teams, and what success looks like — the request left those open.",
+    "poor": "Sure! AI rollout is exciting. You could try some AI tools for your documents, maybe run a survey, and see what sticks. Popular options include various chatbots. (⚠ This response guessed at your intent — the prompt gave no role, no deliverable, no constraints, and no format.)"
+  }
+}

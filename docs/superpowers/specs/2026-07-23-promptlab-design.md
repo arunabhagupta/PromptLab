@@ -62,7 +62,7 @@ Prompt_Engineering/
 
 1. **Prompt Analyzer** — detects Persona / Task / Context / Format (+ Examples / Tone / Safeguards); ✓/✗ badges; 0–100 score; flags vagueness, slang, conflicting instructions, bias terms.
 2. **Tokenizer** — real BPE tokenization (`gpt-tokenizer`, web worker); colored token chips; live count + cost estimate.
-3. **RAG Retrieval** — simulated vector search over a mini document set (includes the aerospace aircraft-manuals scenario). Similarity scores derive from prompt score + keyword overlap. Expanded view: embedding → vector search → top-k.
+3. **RAG Retrieval** — simulated vector search over a mini document set (includes the support-kb scenario). Similarity scores derive from prompt score + keyword overlap. Expanded view: embedding → vector search → top-k.
 4. **LLM Core** — context-window assembly bar (system + RAG chunks + prompt); simplified attention/reasoning animation; hallucination-risk meter driven by prompt score.
 5. **Tools / MCP** — tool discovery and invocation; clear task → correct tool + parameters; vague task → wrong/no tool call.
 6. **Response & Quality** — outcome with relevance/completeness/safety gauges + "next step" iteration tips.
@@ -90,7 +90,7 @@ Prompt_Engineering/
 ### v1 Lessons (8 JSON files)
 1. **What happens when you press Enter** — guided pipeline tour.
 2. **Anatomy of a great prompt** — PTCF; user assembles a prompt piece-by-piece.
-3. **Good vs Bad, side by side** — aircraft-manuals scenario as featured A/B run (mirrors training challenge 1).
+3. **Good vs Bad, side by side** — support-kb scenario as featured A/B run (mirrors training challenge 1).
 4. **Leveling up: Examples, Tone, Safeguards** — extends lesson 3 (mirrors training challenge 2).
 5. **The token economy** — tokens = cost + latency + context budget; live optimizer demo.
 6. **How RAG reads your prompt** — retrieval deep-dive.
